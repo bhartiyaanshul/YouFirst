@@ -91,13 +91,17 @@ class HomeViewModel extends BaseViewModel {
   }
 
   final AudioPlayer _audioPlayer = AudioPlayer();
-  String? _currentMood;
 
+  String? _currentMood;
   String? get currentMood => _currentMood;
+
+  String? _selectedMood;
+  String? get selectedMood => _selectedMood;
 
   /// Play mood-based music
   Future<void> playMusic(String mood) async {
     _currentMood = mood;
+    _selectedMood = mood;
     notifyListeners();
 
     String audioPath = _getAudioPathForMood(mood);
