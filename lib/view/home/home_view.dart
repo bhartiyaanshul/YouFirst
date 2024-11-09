@@ -130,12 +130,12 @@ class HomeView extends StatelessWidget {
                                   backgroundColor: Colors.green,
                                   child: IconButton(
                                     icon: const Icon(Icons.sentiment_neutral),
-                                    onPressed: () => model.playMusic('anxious'),
+                                    onPressed: () => model.playMusic('energetic'),
                                     color: Colors.white,
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                const Text('Anxious'),
+                                const Text('Energetic'),
                               ],
                             ),
                             Column(
