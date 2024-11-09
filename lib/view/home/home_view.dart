@@ -159,7 +159,10 @@ class HomeView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  onPressed: model.navigateToQuestion,
+                                  onPressed: () async {
+                                    await model.sendMessage();
+                                    model.navigateToQuestion();
+                                  },
                                   child: const Text(
                                     'Start Session',
                                     style: TextStyle(

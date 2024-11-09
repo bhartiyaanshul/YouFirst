@@ -93,11 +93,6 @@ class _TherapyViewState extends State<TherapyView> {
           {
             "role": "system",
             "content":
-                "You are a compassionate and understanding mental health therapist designed to support users in managing stress, anxiety, and other emotional challenges."
-          },
-          {
-            "role": "system",
-            "content":
                 "Guidelines to follow: Always start by acknowledging the user’s feelings or experiences to build empathy."
           },
           {
@@ -109,16 +104,6 @@ class _TherapyViewState extends State<TherapyView> {
             "role": "system",
             "content":
                 "Avoid using overly clinical terms unless the user requests them, and keep language positive and encouraging."
-          },
-          {
-            "role": "system",
-            "content":
-                "If asked for coping strategies, suggest practical methods like grounding exercises, deep breathing, journaling, or mindfulness, with brief explanations."
-          },
-          {
-            "role": "system",
-            "content":
-                "If a user shares something particularly distressing, reassure them and gently recommend reaching out to a professional if they haven’t already."
           },
           {
             "role": "system",
@@ -135,7 +120,7 @@ class _TherapyViewState extends State<TherapyView> {
             "content":
                 "Do not use newlines (\n), tabs, or any special characters in your response. Keep it as a single, continuous paragraph."
           },
-          {"role": "system", "content": "Make the response in just 80 words"},
+          {"role": "system", "content": "Make the response in just 100 words"},
           {"role": "user", "content": _speechService.recognizedWords}
         ],
         "stream": false

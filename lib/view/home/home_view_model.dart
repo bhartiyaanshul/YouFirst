@@ -71,22 +71,14 @@ class HomeViewModel extends BaseViewModel {
       });
 
       // Send the POST request
-      final response = await http.post(
+      await http.post(
         Uri.parse(_baseUrl),
         headers: headers,
         body: body,
       );
 
       // Check if the response is successful
-      if (response.statusCode == 200) {
-        // Parse the response
-        final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-        print(jsonResponse['message']['content']);
-        return jsonResponse['message'] ?? 'No response from the model.';
-      } else {
-        print('Failed to connect to the API: ${response.statusCode}');
-        return null;
-      }
+
     } catch (e) {
       print('Error occurred: $e');
       return null;
