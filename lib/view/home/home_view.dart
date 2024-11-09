@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:youfirst/view/home/home_view_model.dart';
+import 'package:youfirst/widget/button/sentiment_button.dart';
 
 @RoutePage()
 class HomeView extends StatelessWidget {
@@ -92,67 +93,33 @@ class HomeView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              children: [
-                                CircleAvatar(
-                                  radius: 30,
-                                  backgroundColor: Colors.blue,
-                                  child: IconButton(
-                                    icon: const Icon(
-                                        Icons.sentiment_very_satisfied),
-                                    onPressed: () => model.playMusic('happy'),
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                const Text('Happy'),
-                              ],
+                            SentimentButton(
+                              icon: Icons.sentiment_very_satisfied,
+                              label: 'Happy',
+                              backgroundColor: Colors.blue,
+                              isSelected: model.selectedMood == 'happy',
+                              onPressed: () => model.playMusic('happy'),
                             ),
-                            Column(
-                              children: [
-                                CircleAvatar(
-                                  radius: 30,
-                                  backgroundColor: Colors.orange,
-                                  child: IconButton(
-                                    icon: const Icon(Icons.sentiment_satisfied),
-                                    onPressed: () => model.playMusic('calm'),
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                const Text('Calm'),
-                              ],
+                            SentimentButton(
+                              icon: Icons.sentiment_satisfied,
+                              label: 'Calm',
+                              backgroundColor: Colors.orange,
+                              isSelected: model.selectedMood == 'calm',
+                              onPressed: () => model.playMusic('calm'),
                             ),
-                            Column(
-                              children: [
-                                CircleAvatar(
-                                  radius: 30,
-                                  backgroundColor: Colors.green,
-                                  child: IconButton(
-                                    icon: const Icon(Icons.sentiment_neutral),
-                                    onPressed: () => model.playMusic('energetic'),
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                const Text('Energetic'),
-                              ],
+                            SentimentButton(
+                              icon: Icons.sentiment_neutral,
+                              label: 'Energetic',
+                              backgroundColor: Colors.green,
+                              isSelected: model.selectedMood == 'energetic',
+                              onPressed: () => model.playMusic('energetic'),
                             ),
-                            Column(
-                              children: [
-                                CircleAvatar(
-                                  radius: 30,
-                                  backgroundColor: Colors.red,
-                                  child: IconButton(
-                                    icon: const Icon(
-                                        Icons.sentiment_very_dissatisfied),
-                                    onPressed: () => model.playMusic('sad'),
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                const Text('Sad'),
-                              ],
+                            SentimentButton(
+                              icon: Icons.sentiment_very_dissatisfied,
+                              label: 'Sad',
+                              backgroundColor: Colors.red,
+                              isSelected: model.selectedMood == 'sad',
+                              onPressed: () => model.playMusic('sad'),
                             ),
                           ],
                         ),
@@ -288,6 +255,30 @@ class HomeView extends StatelessWidget {
               ),
             ],
           ),
+          // bottomNavigationBar: BottomNavigationBar(
+          //   items: const [
+          //     BottomNavigationBarItem(
+          //       icon: Icon(Icons.home, color: Colors.white),
+          //       label: 'Home',
+          //       backgroundColor: Colors.green,
+          //     ),
+          //     BottomNavigationBarItem(
+          //       icon: Icon(Icons.search, color: Colors.white),
+          //       label: 'Search',
+          //       // backgroundColor: Colors.green,
+          //     ),
+          //     BottomNavigationBarItem(
+          //       icon: Icon(Icons.notifications, color: Colors.white),
+          //       label: 'Notifications',
+          //       // backgroundColor: Colors.orange,
+          //     ),
+          //     BottomNavigationBarItem(
+          //       icon: Icon(Icons.person, color: Colors.white),
+          //       label: 'Profile',
+          //       backgroundColor: Colors.red,
+          //     ),
+          //   ],
+          // ),
         );
       },
     );

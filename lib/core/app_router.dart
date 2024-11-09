@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:youfirst/app_wrapper.dart';
 import 'package:youfirst/view/authentication/login/login_view.dart';
 import 'package:youfirst/view/authentication/signup/sigup_view.dart';
 import 'package:youfirst/view/home/home_view.dart';
@@ -13,8 +14,13 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: SigupRoute.page),
-        AutoRoute(page: HomeRoute.page, initial: false),
-        AutoRoute(page: QuestionRoute.page),
-        AutoRoute(page: TherapyRoute.page,initial: true),
+        // AutoRoute(page: HomeRoute.page, initial: false),
+        // AutoRoute(page: QuestionRoute.page),
+        // AutoRoute(page: TherapyRoute.page, initial: false),
+        AutoRoute(page: AppScaffold.page, initial: true, children: [
+          AutoRoute(page: HomeRoute.page),
+          AutoRoute(page: TherapyRoute.page),
+          AutoRoute(page: QuestionRoute.page),
+        ]),
       ];
 }
