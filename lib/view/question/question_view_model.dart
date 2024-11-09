@@ -1,3 +1,5 @@
+import 'package:youfirst/core/app_locator.dart';
+import 'package:youfirst/core/app_router.dart';
 import 'package:youfirst/core/viewmodel/base_view_model.dart';
 
 class QuestionViewModel extends BaseViewModel {
@@ -52,6 +54,8 @@ class QuestionViewModel extends BaseViewModel {
     },
   ];
 
+  final _route = locator<AppRouter>();
+
   int _currentQuestionIndex = 0;
   final Map<int, String> _answers = {};
 
@@ -77,7 +81,7 @@ class QuestionViewModel extends BaseViewModel {
         _currentQuestionIndex++;
         notifyListeners();
       } else {
-        // All questions completed
+        navigateToTherapy();
         notifyListeners();
       }
     }
@@ -85,5 +89,9 @@ class QuestionViewModel extends BaseViewModel {
 
   bool isAnswerValid() {
     return _answers[_currentQuestionIndex]?.isNotEmpty ?? false;
+  }
+
+  void navigateToTherapy() {
+    _route.push(const TherapyRoute());
   }
 }

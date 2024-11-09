@@ -15,6 +15,7 @@ class AppWrapper extends StatelessWidget {
       // routes of /dashboard
       routes: const [
         HomeRoute(),
+        ProfileRoute(),
         // TherapyRoute(),
         // QuestionRoute(),
       ],
@@ -51,9 +52,9 @@ class AppWrapper extends StatelessWidget {
                   tabsRouter.notifyAll(forceUrlRebuild: false);
                 },
                 gap: 4,
-                activeColor: const Color(0xff006C50),
+                activeColor: Color(0xffAEAFF7),
                 color: Colors.white,
-                backgroundColor: const Color(0xff006C50),
+                backgroundColor: Color(0xffAEAFF7),
                 tabBorderRadius: 50,
                 tabs: const [
                   GButton(
@@ -62,25 +63,11 @@ class AppWrapper extends StatelessWidget {
                     text: 'Home',
                     backgroundColor: Color(0xffFFFFFF),
                   ),
-                  // GButton(
-                  //   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                  //   icon: Icons.playlist_add,
-                  //   text: 'Playlists',
-                  //   backgroundColor: Color(0xffFFFFFF),
-                  // ),
-                  // GButton(
-                  //   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                  //   icon: Icons.favorite_border_rounded,
-                  //   text: 'Favourites',
-                  //   backgroundColor: Color(0xffFFFFFF),
-                  // ),
                   GButton(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                     icon: Icons.person,
-                    activeBorder:
-                        Border.fromBorderSide(BorderSide(color: Colors.white)),
-                    iconActiveColor: Color(0xffFFFFFF),
-                    // backgroundColor: Color(0xffFFFFFF),
+                    text: 'Profile',
+                    backgroundColor: Color(0xffFFFFFF),
                   ),
                 ],
               ),

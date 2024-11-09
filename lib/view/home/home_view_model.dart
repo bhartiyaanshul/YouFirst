@@ -2,10 +2,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
+import 'package:youfirst/core/app_locator.dart';
+import 'package:youfirst/core/app_router.dart';
 import 'package:youfirst/core/viewmodel/base_view_model.dart';
 
 class HomeViewModel extends BaseViewModel {
   static const String _baseUrl = 'http://localhost:11434/api/chat';
+  final _route = locator<AppRouter>();
 
   // Function to call the API
   Future<String?> sendMessage() async {
@@ -170,5 +173,9 @@ class HomeViewModel extends BaseViewModel {
   void dispose() {
     _audioPlayer.dispose();
     super.dispose();
+  }
+
+  void navigateToQuestion() {
+    _route.push(const QuestionRoute());
   }
 }

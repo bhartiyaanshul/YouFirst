@@ -22,13 +22,12 @@ class HomeView extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 width: MediaQuery.of(context).size.width,
-                // height: MediaQuery.of(context).size.height * 0.3,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30),
                   ),
-                  color: const Color(0xff006C50).withOpacity(0.9),
+                  color: Color(0xffAEAFF7),
                 ),
                 child: const SafeArea(
                   child: Column(
@@ -62,13 +61,6 @@ class HomeView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // const SizedBox(height: 20),
-                      // ElevatedButton(
-                      //   onPressed: () async {
-                      //     await model.sendMessage();
-                      //   },
-                      //   child: const Text('Get Started'),
-                      // ),
                       SizedBox(height: 20),
                     ],
                   ),
@@ -96,28 +88,28 @@ class HomeView extends StatelessWidget {
                             SentimentButton(
                               icon: Icons.sentiment_very_satisfied,
                               label: 'Happy',
-                              backgroundColor: Colors.blue,
+                              backgroundColor: const Color(0xffEF5DA8),
                               isSelected: model.selectedMood == 'happy',
                               onPressed: () => model.playMusic('happy'),
                             ),
                             SentimentButton(
                               icon: Icons.sentiment_satisfied,
                               label: 'Calm',
-                              backgroundColor: Colors.orange,
+                              backgroundColor: const Color(0xffAEAFF7),
                               isSelected: model.selectedMood == 'calm',
                               onPressed: () => model.playMusic('calm'),
                             ),
                             SentimentButton(
                               icon: Icons.sentiment_neutral,
                               label: 'Energetic',
-                              backgroundColor: Colors.green,
+                              backgroundColor: const Color(0xffA0E3E2),
                               isSelected: model.selectedMood == 'energetic',
                               onPressed: () => model.playMusic('energetic'),
                             ),
                             SentimentButton(
                               icon: Icons.sentiment_very_dissatisfied,
                               label: 'Sad',
-                              backgroundColor: Colors.red,
+                              backgroundColor: const Color(0xffF09E54),
                               isSelected: model.selectedMood == 'sad',
                               onPressed: () => model.playMusic('sad'),
                             ),
@@ -129,15 +121,9 @@ class HomeView extends StatelessWidget {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: const Color(0xff006C50).withOpacity(0.1),
+                        // color: const Color(0xffFEF3E7),
+                        color: Colors.orange[300],
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xff006C50).withOpacity(0.1),
-                            blurRadius: 10,
-                            spreadRadius: 1,
-                          ),
-                        ],
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -152,7 +138,7 @@ class HomeView extends StatelessWidget {
                                   '1 on 1 session ',
                                   style: TextStyle(
                                     fontSize: 22,
-                                    color: Color(0xff006C50),
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -161,15 +147,23 @@ class HomeView extends StatelessWidget {
                                   'Let’s open up to the things that \n matter the most ',
                                   style: TextStyle(
                                     fontSize: 12,
-                                    color: Colors.grey[600],
+                                    color: Colors.grey[200],
                                   ),
                                 ),
-                                TextButton(
-                                  onPressed: () {},
+                                const SizedBox(height: 10),
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    padding: WidgetStateProperty.all(
+                                      const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: model.navigateToQuestion,
                                   child: const Text(
                                     'Start Session',
                                     style: TextStyle(
-                                        color: Color(0xff006C50),
+                                        color: Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -194,14 +188,14 @@ class HomeView extends StatelessWidget {
                               horizontal: 40, vertical: 20),
                           child: const Row(
                             children: [
-                              Icon(Icons.history),
+                              Icon(Icons.history_edu),
                               SizedBox(width: 8),
                               Text(
-                                'History',
+                                'Journal',
                                 style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xff573926)),
                               ),
                             ],
                           ),
@@ -220,9 +214,9 @@ class HomeView extends StatelessWidget {
                               Text(
                                 'History',
                                 style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xff573926)),
                               ),
                             ],
                           ),
@@ -235,7 +229,7 @@ class HomeView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 20),
                       decoration: BoxDecoration(
-                        color: const Color(0xff006C50).withOpacity(0.1),
+                        color: const Color(0xffF4F4F4),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
@@ -255,30 +249,6 @@ class HomeView extends StatelessWidget {
               ),
             ],
           ),
-          // bottomNavigationBar: BottomNavigationBar(
-          //   items: const [
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.home, color: Colors.white),
-          //       label: 'Home',
-          //       backgroundColor: Colors.green,
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.search, color: Colors.white),
-          //       label: 'Search',
-          //       // backgroundColor: Colors.green,
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.notifications, color: Colors.white),
-          //       label: 'Notifications',
-          //       // backgroundColor: Colors.orange,
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.person, color: Colors.white),
-          //       label: 'Profile',
-          //       backgroundColor: Colors.red,
-          //     ),
-          //   ],
-          // ),
         );
       },
     );
