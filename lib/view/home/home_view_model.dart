@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:just_audio/just_audio.dart';
 import 'package:youfirst/core/viewmodel/base_view_model.dart';
 
 class HomeViewModel extends BaseViewModel {
@@ -86,5 +88,83 @@ class HomeViewModel extends BaseViewModel {
       print('Error occurred: $e');
       return null;
     }
+  }
+
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  String? _currentMood;
+
+  String? get currentMood => _currentMood;
+
+  /// Play mood-based music
+  Future<void> playMusic(String mood) async {
+    _currentMood = mood;
+    notifyListeners();
+
+    String audioPath = _getAudioPathForMood(mood);
+    if (audioPath.isNotEmpty) {
+      try {
+        await _audioPlayer.setAsset(audioPath);
+        await _audioPlayer.play();
+      } catch (e) {
+        debugPrint('Error playing audio: $e');
+      }
+    } else {
+      debugPrint('No audio available for mood: $mood');
+    }
+  }
+
+  /// Pause music
+  Future<void> pauseMusic() async {
+    try {
+      await _audioPlayer.pause();
+      debugPrint('Music paused');
+    } catch (e) {
+      debugPrint('Error pausing audio: $e');
+    }
+  }
+
+  /// Stop music
+  Future<void> stopMusic() async {
+    try {
+      await _audioPlayer.stop();
+      _currentMood = null;
+      notifyListeners();
+      debugPrint('Music stopped');
+    } catch (e) {
+      debugPrint('Error stopping audio: $e');
+    }
+  }
+
+  /// Get the corresponding audio path for a given mood
+  String _getAudioPathForMood(String mood) {
+    switch (mood) {
+      case 'happy':
+        return 'assets/audios/happy.mp3';
+      case 'calm':
+        return 'assets/audios/calm.mp3';
+      case 'energetic':
+        return 'assets/audios/energetic.mp3';
+      case 'sad':
+        return 'assets/audios/sad.mp3';
+      default:
+        return '';
+    }
+  }
+
+  /// Handle volume adjustments
+  Future<void> setVolume(double volume) async {
+    try {
+      await _audioPlayer.setVolume(volume);
+      debugPrint('Volume set to $volume');
+    } catch (e) {
+      debugPrint('Error setting volume: $e');
+    }
+  }
+
+  /// Dispose resources when no longer needed
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
   }
 }
