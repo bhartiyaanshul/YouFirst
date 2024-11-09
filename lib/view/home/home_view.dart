@@ -36,8 +36,8 @@ class HomeView extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 30,
-                            backgroundImage:
-                                AssetImage('assets/images/avatar.png'),
+                            backgroundImage: NetworkImage(
+                                'https://static.vecteezy.com/system/resources/previews/014/194/216/original/avatar-icon-human-a-person-s-badge-social-media-profile-symbol-the-symbol-of-a-person-vector.jpg'),
                           ),
                           SizedBox(width: 10),
                           Column(
@@ -154,7 +154,7 @@ class HomeView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 40),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
@@ -167,7 +167,7 @@ class HomeView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Text(
+                      child: const Text(
                         'Your mood will help us to provide you with the best content',
                         style: TextStyle(
                           fontSize: 16,
