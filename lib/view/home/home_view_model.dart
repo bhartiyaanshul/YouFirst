@@ -170,4 +170,8 @@ class HomeViewModel extends BaseViewModel {
   void navigateToQuestion() {
     _route.push(const QuestionRoute());
   }
+
+  void navigateToJournal() {
+    _route.push(const JournalRoute());
+  }
 }

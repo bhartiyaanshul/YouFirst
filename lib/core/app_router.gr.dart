@@ -48,6 +48,25 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [JournalView]
+class JournalRoute extends PageRouteInfo<void> {
+  const JournalRoute({List<PageRouteInfo>? children})
+      : super(
+          JournalRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'JournalRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const JournalView();
+    },
+  );
+}
+
+/// generated route for
 /// [LoginView]
 class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute({List<PageRouteInfo>? children})

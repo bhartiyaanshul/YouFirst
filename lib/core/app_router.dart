@@ -3,6 +3,7 @@ import 'package:youfirst/app_wrapper.dart';
 import 'package:youfirst/view/authentication/login/login_view.dart';
 import 'package:youfirst/view/authentication/signup/sigup_view.dart';
 import 'package:youfirst/view/home/home_view.dart';
+import 'package:youfirst/view/journal/journal_view.dart';
 import 'package:youfirst/view/profile/profile_view.dart';
 import 'package:youfirst/view/question/question_view.dart';
 import 'package:youfirst/view/speech_to_text/speech_to_text_example.dart';
@@ -18,6 +19,7 @@ class AppRouter extends RootStackRouter {
         // AutoRoute(page: HomeRoute.page, initial: false),
         AutoRoute(page: QuestionRoute.page),
         AutoRoute(page: TherapyRoute.page, initial: false),
+        AutoRoute(page: JournalRoute.page),
         AutoRoute(
           page: AppScaffold.page,
           initial: true,
