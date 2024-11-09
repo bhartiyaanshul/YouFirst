@@ -9,6 +9,7 @@ import 'package:youfirst/core/service/speech_to_text.dart';
 import 'package:youfirst/core/service/text_to_speech.dart';
 import 'package:youfirst/view/therapy/therapy_view_model.dart';
 import 'package:http/http.dart' as http;
+
 String EL_API_KEY = "sk_aafa3a83cbb7cd95b97552f8655d4855059c618014ace273";
 
 @RoutePage()
@@ -20,14 +21,14 @@ class TherapyView extends StatefulWidget {
 }
 
 class _TherapyViewState extends State<TherapyView> {
-    final player = AudioPlayer();
-    bool _isLoadingVoice = false;
+  final player = AudioPlayer();
+  bool _isLoadingVoice = false;
   final _textService = locator<TextToSpeechService>();
   final _speechService = locator<SpeechToTextService>();
-    @override
+  @override
   // static const String _baseUrl = 'http://192.168.254.175:11434/api/chat';
   static const String _baseUrl = 'http://10.0.2.2:11434/api/chat';
-  String _aiModelReponse = 'This is the response from AI model';
+  String _aiModelReponse = '';
   String get aiModelReponse => _aiModelReponse;
   bool _isLoading = true;
 
@@ -36,19 +37,21 @@ class _TherapyViewState extends State<TherapyView> {
     super.initState();
     _initializeSpeechService();
   }
+
   void dispose() {
     player.dispose();
     super.dispose();
   }
-      Future<void> playTextToSpeech(String text) async {
-        log("playTextToSpeech function called");
+
+  Future<void> playTextToSpeech(String text) async {
+    log("playTextToSpeech function called");
     setState(() {
       _isLoadingVoice = true;
     });
 
     String voiceRachel = '21m00Tcm4TlvDq8ikWAM';
 
-    String url = 'https://api.elevenlabs.io/v1/text-to-speech/voices';
+    String url = 'https://api.elevenlabs.io/v1/text-to-speech/$voiceRachel';
     final response = await http.post(
       Uri.parse(url),
       headers: {
@@ -59,7 +62,7 @@ class _TherapyViewState extends State<TherapyView> {
       body: json.encode({
         "text": text,
         "model_id": "eleven_monolingual_v1",
-        "voice_settings": {"stability": 0.15, "similarity_boost": 0.50, "language_code" : "hi"}
+        "voice_settings": {"stability": 0.15, "similarity_boost": 0.75}
       }),
     );
 
@@ -69,57 +72,59 @@ class _TherapyViewState extends State<TherapyView> {
 
     if (response.statusCode == 200) {
       final bytes = response.bodyBytes;
+      log('$bytes');
       await player.setAudioSource(MyCustomSource(bytes));
+      log('this is after player set audio');
       player.play();
     } else {
       return;
     }
   }
 
-  // Future<String?> sendMessage() async {
-  //   try {
-  //     print('Sending message to the API...');
-  //     // Define the headers for the request
-  //     final headers = {'Content-Type': 'application/json'};
+  Future<String?> sendMessage() async {
+    try {
+      print('Sending message to the API...');
+      // Define the headers for the request
+      final headers = {'Content-Type': 'application/json'};
 
-  //     // Define the body with the required structure
-  //     final body = jsonEncode({
-  //       "model": "llama3.2:1b",
-  //       "messages": [
-  //         {
-  //           "role": "system",
-  //           "content":
-  //               "You are a compassionate and understanding mental health therapist designed to support users in managing stress, anxiety, and other emotional challenges."
-  //         },
-  //         {"role": "user", "content": _speechService.recognizedWords}
-  //       ],
-  //       "stream": false
-  //     });
+      // Define the body with the required structure
+      final body = jsonEncode({
+        "model": "llama3.2:1b",
+        "messages": [
+          {
+            "role": "system",
+            "content":
+                "You are a compassionate and understanding mental health therapist designed to support users in managing stress, anxiety, and other emotional challenges."
+          },
+          {"role": "user", "content": _speechService.recognizedWords}
+        ],
+        "stream": false
+      });
 
-  //     // Send the POST request
-  //     final response = await http.post(
-  //       Uri.parse(_baseUrl),
-  //       headers: headers,
-  //       body: body,
-  //     );
+      // Send the POST request
+      final response = await http.post(
+        Uri.parse(_baseUrl),
+        headers: headers,
+        body: body,
+      );
 
-  //     // Check if the response is successful
-  //     if (response.statusCode == 200) {
-  //       // Parse the response
+      // Check if the response is successful
+      if (response.statusCode == 200) {
+        // Parse the response
 
-  //       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-  //       _aiModelReponse = jsonResponse['message']['content'] ?? 'No response from the model.';
-  //       print(jsonResponse['message']['content']);
-  //       return jsonResponse['message']['content'] ?? 'No response from the model.';
-  //     } else {
-  //       print('Failed to connect to the API: ${response.statusCode}');
-  //       return null;
-  //     }
-  //   } catch (e) {
-  //     print('Error occurred: $e');
-  //     return null;
-  //   }
-  // }
+        final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        _aiModelReponse = jsonResponse['message']['content'] ?? 'No response from the model.';
+        print(jsonResponse['message']['content']);
+        return jsonResponse['message']['content'] ?? 'No response from the model.';
+      } else {
+        print('Failed to connect to the API: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Error occurred: $e');
+      return null;
+    }
+  }
 
   Future<void> _initializeSpeechService() async {
     try {
@@ -216,7 +221,7 @@ class _TherapyViewState extends State<TherapyView> {
                               child: IconButton(
                                 onPressed: () async {
                                   speechService.stopListening();
-                                  () => playTextToSpeech(_aiModelReponse);
+                                  await playTextToSpeech(_aiModelReponse);
                                 },
                                 icon: const Icon(
                                   Icons.pause,

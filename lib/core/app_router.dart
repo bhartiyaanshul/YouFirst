@@ -16,10 +16,9 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: SigupRoute.page),
         // AutoRoute(page: HomeRoute.page, initial: false),
         // AutoRoute(page: QuestionRoute.page),
-        // AutoRoute(page: TherapyRoute.page, initial: false),
-        AutoRoute(page: AppScaffold.page, initial: true, children: [
+        AutoRoute(page: TherapyRoute.page, initial: true),
+        AutoRoute(page: AppScaffold.page, children: [
           AutoRoute(page: HomeRoute.page),
-          AutoRoute(page: TherapyRoute.page),
           AutoRoute(page: QuestionRoute.page),
         ]),
       ];
