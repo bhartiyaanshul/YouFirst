@@ -167,13 +167,13 @@ class HomeView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Text(
-                        'Your mood will help us to provide you with the best content',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
+                      // child: Text(
+                      //   'Your mood will help us to provide you with the best content',
+                      //   style: TextStyle(
+                      //     fontSize: 16,
+                      //     color: Colors.grey,
+                      //   ),
+                      // ),
                     )
                   ],
                 ),
