@@ -113,9 +113,11 @@ class _TherapyViewState extends State<TherapyView> {
         // Parse the response
 
         final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-        _aiModelReponse = jsonResponse['message']['content'] ?? 'No response from the model.';
+        _aiModelReponse =
+            jsonResponse['message']['content'] ?? 'No response from the model.';
         print(jsonResponse['message']['content']);
-        return jsonResponse['message']['content'] ?? 'No response from the model.';
+        return jsonResponse['message']['content'] ??
+            'No response from the model.';
       } else {
         print('Failed to connect to the API: ${response.statusCode}');
         return null;
@@ -200,7 +202,7 @@ class _TherapyViewState extends State<TherapyView> {
                               width: 60,
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Color(0xff006C50),
+                                color: Color(0xffAEAFF7),
                               ),
                               child: IconButton(
                                 onPressed: speechService.startListening,
@@ -214,9 +216,9 @@ class _TherapyViewState extends State<TherapyView> {
                             Container(
                               height: 60,
                               width: 60,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Color(0xff006C50),
+                                color: Colors.red.shade400,
                               ),
                               child: IconButton(
                                 onPressed: () async {

@@ -5,16 +5,6 @@ import 'package:youfirst/core/viewmodel/base_view_model.dart';
 class QuestionViewModel extends BaseViewModel {
   final List<Map<String, List<String>>> questionsWithOptions = [
     {
-      "How would you describe your current emotional state in one word?": [
-        "Happy",
-        "Sad",
-        "Anxious",
-        "Calm",
-        "Angry",
-        "Neutral"
-      ],
-    },
-    {
       "On a scale of 1 to 5, how stressed or overwhelmed do you feel right now?":
           ["1", "2", "3", "4", "5"],
     },
@@ -50,6 +40,15 @@ class QuestionViewModel extends BaseViewModel {
         "Received good news",
         "Learned something new",
         "Other"
+      ],
+    },
+    {
+      "How often do you exercise in a week?": [
+        "Every day",
+        "A few times a week",
+        "Once a week",
+        "Rarely",
+        "Never"
       ],
     },
   ];

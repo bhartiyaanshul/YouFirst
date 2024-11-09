@@ -28,7 +28,7 @@ class QuestionView extends StatelessWidget {
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20),
-                if (model.currentQuestionIndex == 1)
+                if (model.currentQuestionIndex == 0)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -73,7 +73,7 @@ class QuestionView extends StatelessWidget {
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.resolveWith((states) =>
-                        model.isAnswerValid() ? const Color(0xff006c50) : null),
+                        model.isAnswerValid() ? const Color(0xffAEAFF7) : null),
                   ),
                   onPressed: model.isAnswerValid() ? model.nextQuestion : null,
                   child: Text(
