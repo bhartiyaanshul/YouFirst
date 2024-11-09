@@ -86,6 +86,25 @@ class SigupRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SpeechWidgetView]
+class SpeechWidgetRoute extends PageRouteInfo<void> {
+  const SpeechWidgetRoute({List<PageRouteInfo>? children})
+      : super(
+          SpeechWidgetRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SpeechWidgetRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return SpeechWidgetView();
+    },
+  );
+}
+
+/// generated route for
 /// [TherapyView]
 class TherapyRoute extends PageRouteInfo<void> {
   const TherapyRoute({List<PageRouteInfo>? children})

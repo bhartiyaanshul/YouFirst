@@ -1,31 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:youfirst/core/app_locator.dart';
-import 'package:youfirst/core/service/text_to_speech.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 String EL_API_KEY = "sk_aafa3a83cbb7cd95b97552f8655d4855059c618014ace273";
 
-class TTSWidget extends StatefulWidget {
+class TTSWidget extends StatefulWidget {  
   @override
   _TTSWidgetState createState() => _TTSWidgetState();
 }
 
 class _TTSWidgetState extends State<TTSWidget> {
   final TextEditingController _textFieldController = TextEditingController();
-  final _ttsService = locator<TextToSpeechService>();
+  final player = AudioPlayer();
+  bool _isLoadingVoice = false;
+
   @override
   void dispose() {
     _textFieldController.dispose();
-    _ttsService.dispose();
+    player.dispose();
     super.dispose();
   }
 
-  Future<void> _handlePlayTextToSpeech() async {
-    try {
-      await _ttsService.playTextToSpeech(_textFieldController.text, EL_API_KEY);
-      setState(() {});
-    } catch (e) {
-      // Handle error, e.g., show an error message to the user
-      print('Error: $e');
+  Future<void> playTextToSpeech(String text) async {
+    setState(() {
+      _isLoadingVoice = true;
+    });
+
+    String voiceRachel = '21m00Tcm4TlvDq8ikWAM';
+    String url = 'https://api.elevenlabs.io/v1/text-to-speech/$voiceRachel';
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'accept': 'audio/mpeg',
+        'xi-api-key': EL_API_KEY,
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        "text": text,
+        "model_id": "eleven_monolingual_v1",
+        "voice_settings": {"stability": 0.15, "similarity_boost": 0.75}
+      }),
+    );
+
+    setState(() {
+      _isLoadingVoice = false;
+    });
+
+    if (response.statusCode == 200) {
+      final bytes = response.bodyBytes;
+      await player.setAudioSource(MyCustomSource(bytes));
+      player.play();
     }
   }
 
@@ -48,10 +74,12 @@ class _TTSWidgetState extends State<TTSWidget> {
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: _ttsService.isLoadingVoice ? null : _handlePlayTextToSpeech,
+              onPressed: _isLoadingVoice
+                  ? null
+                  : () => playTextToSpeech(_textFieldController.text),
               child: const Icon(Icons.volume_up),
             ),
-            if (_ttsService.isLoadingVoice)
+            if (_isLoadingVoice)
               const Padding(
                 padding: EdgeInsets.only(top: 16.0),
                 child: Center(child: CircularProgressIndicator()),
@@ -59,6 +87,24 @@ class _TTSWidgetState extends State<TTSWidget> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class MyCustomSource extends StreamAudioSource {
+  final List<int> bytes;
+  MyCustomSource(this.bytes);
+
+  @override
+  Future<StreamAudioResponse> request([int? start, int? end]) async {
+    start ??= 0;
+    end ??= bytes.length;
+    return StreamAudioResponse(
+      sourceLength: bytes.length,
+      contentLength: end - start,
+      offset: start,
+      stream: Stream.fromIterable([bytes.sublist(start, end)]),
+      contentType: 'audio/mpeg',
     );
   }
 }
