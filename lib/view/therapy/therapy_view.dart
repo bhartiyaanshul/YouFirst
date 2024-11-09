@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:youfirst/core/app_locator.dart';
 import 'package:youfirst/core/service/speech_to_text.dart';
 import 'package:youfirst/view/therapy/therapy_view_model.dart';
+import 'package:http/http.dart' as http;
 
 @RoutePage()
 class TherapyView extends StatefulWidget {
@@ -16,12 +18,61 @@ class TherapyView extends StatefulWidget {
 
 class _TherapyViewState extends State<TherapyView> {
   final _speechService = locator<SpeechToTextService>();
+  // static const String _baseUrl = 'http://192.168.254.175:11434/api/chat';
+  static const String _baseUrl = 'http://10.0.2.2:11434/api/chat';
+  String _aiModelReponse = '';
+  String get aiModelReponse => _aiModelReponse;
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _initializeSpeechService();
+  }
+
+  Future<String?> sendMessage() async {
+    try {
+      print('Sending message to the API...');
+      // Define the headers for the request
+      final headers = {'Content-Type': 'application/json'};
+
+      // Define the body with the required structure
+      final body = jsonEncode({
+        "model": "llama3.2:1b",
+        "messages": [
+          {
+            "role": "system",
+            "content":
+                "You are a compassionate and understanding mental health therapist designed to support users in managing stress, anxiety, and other emotional challenges."
+          },
+          {"role": "user", "content": _speechService.recognizedWords}
+        ],
+        "stream": false
+      });
+
+      // Send the POST request
+      final response = await http.post(
+        Uri.parse(_baseUrl),
+        headers: headers,
+        body: body,
+      );
+
+      // Check if the response is successful
+      if (response.statusCode == 200) {
+        // Parse the response
+
+        final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        _aiModelReponse = jsonResponse['message']['content'] ?? 'No response from the model.';
+        print(jsonResponse['message']['content']);
+        return jsonResponse['message']['content'] ?? 'No response from the model.';
+      } else {
+        print('Failed to connect to the API: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Error occurred: $e');
+      return null;
+    }
   }
 
   Future<void> _initializeSpeechService() async {
@@ -38,7 +89,7 @@ class _TherapyViewState extends State<TherapyView> {
     }
   }
 
-  void _toggleListening() {
+  Future<void> _toggleListening() async {
     if (_speechService.isListening) {
       log("Mic is listening!!");
       _speechService.stopListening();
@@ -117,7 +168,10 @@ class _TherapyViewState extends State<TherapyView> {
                                 color: Color(0xff006C50),
                               ),
                               child: IconButton(
-                                onPressed: speechService.stopListening,
+                                onPressed: () async {
+                                  speechService.stopListening();
+                                  await sendMessage();
+                                },
                                 icon: const Icon(
                                   Icons.pause,
                                   color: Colors.white,
