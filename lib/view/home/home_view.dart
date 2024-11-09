@@ -30,7 +30,7 @@ class HomeView extends StatelessWidget {
                     ),
                     color: Color(0xffAEAFF7),
                   ),
-                  child: const SafeArea(
+                  child:  SafeArea(
                     child: Column(
                       children: [
                         SizedBox(height: 25),
@@ -56,6 +56,27 @@ class HomeView extends StatelessWidget {
                                     color: Colors.white,
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                ElevatedButton(
+                                  style: ButtonStyle(
+                                    padding: WidgetStateProperty.all(
+                                      const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                    // await model.sendMessage();
+                                    model.navigateToQuestion();
+                                  },
+                                  child: const Text(
+                                    'Start Session',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ],
