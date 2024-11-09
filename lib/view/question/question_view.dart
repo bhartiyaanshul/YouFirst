@@ -41,7 +41,7 @@ class QuestionView extends StatelessWidget {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: model.selectedAnswer == option
-                                  ? Colors.green
+                                  ? const Color(0xffAEAFF7)
                                   : Colors.grey.shade300,
                             ),
                             child: Text(option,

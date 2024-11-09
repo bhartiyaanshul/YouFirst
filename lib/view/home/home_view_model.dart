@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
@@ -7,7 +8,7 @@ import 'package:youfirst/core/app_router.dart';
 import 'package:youfirst/core/viewmodel/base_view_model.dart';
 
 class HomeViewModel extends BaseViewModel {
-  static const String _baseUrl = 'http://localhost:11434/api/chat';
+  static const String _baseUrl = 'http://10.0.2.2:11434/api/chat';
   final _route = locator<AppRouter>();
 
   // Function to call the API
@@ -76,6 +77,8 @@ class HomeViewModel extends BaseViewModel {
         headers: headers,
         body: body,
       );
+
+      log('Message sent successfully');
 
       // Check if the response is successful
 

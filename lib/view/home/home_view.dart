@@ -160,7 +160,7 @@ class HomeView extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () async {
-                                    await model.sendMessage();
+                                    // await model.sendMessage();
                                     model.navigateToQuestion();
                                   },
                                   child: const Text(
