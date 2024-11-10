@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 class QuestionViewModel extends BaseViewModel {
   static const String _baseUrl = 'http://10.0.2.2:11434/api/chat';
+  var command = '';
   final List<Map<String, List<String>>> questionsWithOptions = [
     {
       "On a scale of 1 to 5, how stressed or overwhelmed do you feel right now?":
@@ -223,6 +224,8 @@ class QuestionViewModel extends BaseViewModel {
         "stream": false
       });
 
+      command = body;
+
       // Send the POST request
       await http.post(
         Uri.parse(_baseUrl),
@@ -263,6 +266,6 @@ class QuestionViewModel extends BaseViewModel {
 
   Future<void> navigateToTherapy() async {
     await sendMessage();
-    _route.push(const TherapyRoute());
+    _route.push(TherapyRoute());
   }
 }

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:youfirst/app_wrapper.dart';
 import 'package:youfirst/view/authentication/login/login_view.dart';
 import 'package:youfirst/view/authentication/signup/sigup_view.dart';
@@ -6,6 +7,7 @@ import 'package:youfirst/view/home/home_view.dart';
 import 'package:youfirst/view/journal/journal_view.dart';
 import 'package:youfirst/view/profile/profile_view.dart';
 import 'package:youfirst/view/question/question_view.dart';
+import 'package:youfirst/view/report/report_view.dart';
 import 'package:youfirst/view/speech_to_text/speech_to_text_example.dart';
 import 'package:youfirst/view/therapy/therapy_view.dart';
 part './app_router.gr.dart';
@@ -20,6 +22,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: QuestionRoute.page),
         AutoRoute(page: TherapyRoute.page, initial: false),
         AutoRoute(page: JournalRoute.page),
+        AutoRoute(page: ReportRoute.page),
         AutoRoute(
           page: AppScaffold.page,
           initial: true,

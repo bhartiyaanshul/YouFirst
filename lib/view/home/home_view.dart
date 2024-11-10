@@ -121,7 +121,7 @@ class _HomeViewState extends State<HomeView> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  'Hi, Surya!',
+                                  'Hi, John!',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 24,
@@ -299,7 +299,7 @@ class _HomeViewState extends State<HomeView> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      await model.sendMessage();
+                                      // await model.sendMessage();
                                       model.navigateToQuestion();
                                     },
                                     child: const Text(
@@ -321,25 +321,31 @@ class _HomeViewState extends State<HomeView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: const Color(0xffF4F3F1),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 20),
-                            child: const Row(
-                              children: [
-                                Icon(Icons.history_edu),
-                                SizedBox(width: 10),
-                                Text(
-                                  'Journals',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                          GestureDetector(
+                            onTap: () {
+                              // Navigate to the journal screen
+                              model.navigateToJournal();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: const Color(0xffF4F3F1),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 20),
+                              child: const Row(
+                                children: [
+                                  Icon(Icons.history_edu),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    'Journals',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           Container(

@@ -124,6 +124,52 @@ class QuestionRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ReportView]
+class ReportRoute extends PageRouteInfo<ReportRouteArgs> {
+  ReportRoute({
+    Key? key,
+    required String Report,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ReportRoute.name,
+          args: ReportRouteArgs(
+            key: key,
+            Report: Report,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ReportRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ReportRouteArgs>();
+      return ReportView(
+        key: args.key,
+        Report: args.Report,
+      );
+    },
+  );
+}
+
+class ReportRouteArgs {
+  const ReportRouteArgs({
+    this.key,
+    required this.Report,
+  });
+
+  final Key? key;
+
+  final String Report;
+
+  @override
+  String toString() {
+    return 'ReportRouteArgs{key: $key, Report: $Report}';
+  }
+}
+
+/// generated route for
 /// [SigupView]
 class SigupRoute extends PageRouteInfo<void> {
   const SigupRoute({List<PageRouteInfo>? children})
