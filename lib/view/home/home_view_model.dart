@@ -6,10 +6,63 @@ import 'package:just_audio/just_audio.dart';
 import 'package:youfirst/core/app_locator.dart';
 import 'package:youfirst/core/app_router.dart';
 import 'package:youfirst/core/viewmodel/base_view_model.dart';
+import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class HomeViewModel extends BaseViewModel {
   static const String _baseUrl = 'http://10.0.2.2:11434/api/chat';
   final _route = locator<AppRouter>();
+
+  List<String> happySongNames = [
+    'Yummy Justin Beiber',
+    'Let me down slowly',
+    'Circles Post Malone'
+  ];
+  List<String> CalmSongNames = [
+    'Weightless by Marconi Union'
+        'Clair de Lune by Claude Debussy',
+    'Sunset Lover by Petit Biscuit'
+  ];
+  List<String> EnergeticSongNames = [
+    'Eye of the Tiger by Survivor',
+    'Cant Stop the Feeling! by Justin Timberlake',
+    'Stronger by Kanye West'
+  ];
+  List<String> SadSongNames = [
+    'Someone Like You - Adele',
+    'Tears Dry on Their Own - Amy Winehouse',
+    'Fix You - Coldplay'
+  ];
+
+  List<String> get happySongs => happySongNames;
+  List<String> get calmSongs => CalmSongNames;
+  List<String> get energeticSongs => EnergeticSongNames;
+  List<String> get sadSongs => SadSongNames;
+  
+  final yt = YoutubeExplode();
+  List<String> songTitles = [];
+  List<String> songUrls = [];
+
+  // String _selectedMood = '';
+
+  Future<void> fetchYouTubeSongs(List<String> songs) async {
+    log("Fetching songs...");
+
+    try {
+      for (var term in songs) {
+        final result = await yt.search.search(term);
+        final videoId = result.first.id.value;
+        var manifest = await yt.videos.streamsClient.getManifest(videoId);
+        var audioUrl = manifest.audioOnly.first.url;
+
+        songTitles.add(result.first.title);
+        songUrls.add(audioUrl.toString());
+        ChangeNotifier();
+      }
+      log("Fetched song titles: $songTitles");
+    } catch (e) {
+      log('Error fetching songs: $e');
+    }
+  }
 
   // Function to call the API
   Future<String?> sendMessage() async {
@@ -81,7 +134,6 @@ class HomeViewModel extends BaseViewModel {
       log('Message sent successfully');
 
       // Check if the response is successful
-
     } catch (e) {
       print('Error occurred: $e');
       return null;
