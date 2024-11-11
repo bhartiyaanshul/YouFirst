@@ -1,4 +1,4 @@
-# youfirst
+# YouFirst
 
 **YouFirst** is a voice-interactive AI therapist platform, uniquely designed to make mental health support accessible and personalised. 
 
